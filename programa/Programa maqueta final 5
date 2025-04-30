@@ -1,0 +1,42 @@
+from microbit import *
+import music
+
+# Configuración del sensor PIR
+PIR_PIN = pin0  # Cambia esto si tu sensor está en otro pin
+
+def parpadear_neopixel(color, veces):
+    for _ in range(veces):
+        # Enciende los LEDs en el color especificado
+        display.show(Image.HEART)  # Simulando el neopixel con la matriz
+        sleep(500)
+        display.clear()
+        sleep(500)
+
+def mostrar_cara_enfadada():
+    for _ in range(5):
+        display.show(Image.ANGRY)
+        sleep(500)
+        display.clear()
+        sleep(500)
+
+def mostrar_casa():
+    display.show(Image.HOUSE)
+
+while True:
+    if PIR_PIN.read_digital() == 1:  # Si se detecta presencia
+        # Emitir el sonido "Ringtone" dos veces
+        music.play(music.RINGTONE)
+        sleep(1000)  # Espera un segundo
+        music.play(music.RINGTONE)
+        
+        # Parpadeo de LEDs Neopixel en rojo (simulado aquí)
+        parpadear_neopixel(Color.RED, 5)
+        
+        # Parpadeo del LED blanco (simulado aquí)
+        parpadear_neopixel(Color.WHITE, 5)
+        
+        # Mostrar cara enfadada
+        mostrar_cara_enfadada()
+    else:
+        # Si no hay presencia, mostrar una casa
+        mostrar_casa()
